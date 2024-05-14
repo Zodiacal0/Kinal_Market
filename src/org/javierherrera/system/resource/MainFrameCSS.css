@@ -1,0 +1,17 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 26-abr-2024, 18:14:39
+    Author     : Javier
+*/
+
+.menu-bar{
+    -fx-background-color:  #EBAD31;
+}
+/* styles.css */
+.menu-item:hover {
+    -fx-text-fill: #EBAD31; 
+    -fx-font-size: 14px;
+}

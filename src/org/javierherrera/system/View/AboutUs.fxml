@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="688.0" stylesheets="@../resource/AboutUsFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.AboutUsController">
+   <children>
+      <ImageView fitHeight="398.0" fitWidth="698.0" layoutX="-5.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/About%20Us.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="218.0" fitWidth="154.0" layoutX="477.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Programmer.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="46.0" layoutY="38.0" text="Programador">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="104.0" prefHeight="20.0" prefWidth="204.0" text="Javier Edurardo Herrera Pérez">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="124.0" prefHeight="20.0" prefWidth="204.0" text="Año de Nacimiento : 2006">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="144.0" prefHeight="20.0" prefWidth="370.0" text="Razón de seguir esta Carrera: &quot;Por la plata y porque me gusta Sufrir" />
+      <Label layoutX="46.0" layoutY="164.0" prefHeight="20.0" prefWidth="204.0" text="Carné: 2020459">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="184.0" prefHeight="20.0" prefWidth="204.0" text="Sección: B">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <MenuBar prefHeight="25.0" prefWidth="154.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Modulos">
+            <items>
+              <MenuItem fx:id="btn_Cliente" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes" />
+                  <MenuItem fx:id="btn_mainView" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu Principal" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Reportes">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Compra y Venta" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Button fx:id="btn_Volver" layoutX="36.0" layoutY="291.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="83.0" text="Volver" />
+   </children>
+</Pane>
