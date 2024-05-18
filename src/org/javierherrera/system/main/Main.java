@@ -18,6 +18,7 @@ import org.javierherrera.system.Controller.ClienteController;
 import org.javierherrera.system.Controller.ComprasController;
 import org.javierherrera.system.Controller.ProveedorController;
 import org.javierherrera.system.Controller.MainFrameController;
+import org.javierherrera.system.Controller.ProductoController;
 import org.javierherrera.system.Controller.TipoDeProductoController;
 
 /**
@@ -118,6 +119,14 @@ public class Main extends Application {
         try {
             ProveedorController prov = (ProveedorController) cambiarEscena("ProveedorFrame.fxml", 878.0,473.0);
             prov.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void Productos() {
+        try {
+            ProductoController prod = (ProductoController) cambiarEscena("ProductoFrame.fxml", 979.0,558.0);
+            prod.setEscenarioPrincipal(this);
         } catch (Exception e) {
             e.printStackTrace();
         }

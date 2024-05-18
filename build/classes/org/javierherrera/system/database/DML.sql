@@ -94,7 +94,21 @@ DELIMITER ;
 CALL sp_eliminarTipoProducto(1);
 
 DELIMITER $$
+CREATE PROCEDURE sp_buscarTipoDeProducto(
+	IN codigoTipoProducto INT
+)
+BEGIN
 
+	SELECT * FROM TipoProducto
+    WHERE codigoTipoProducto = codigoTipoProducto;
+
+END$$
+DELIMITER ;
+
+CALL sp_buscarTipoDeProducto(1234);
+
+
+DELIMITER $$
 CREATE PROCEDURE sp_crearCompras(
     IN numeroDocumento INT,
     IN fechaDocumento DATE,
@@ -249,6 +263,18 @@ END$$
 
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_buscarProveedor(
+	IN codigoProveedor INT
+)
+BEGIN
+
+	SELECT * FROM Proveedores
+    WHERE codigoProveedor = codigoProveedor;
+END$$
+DELIMITER ;
+
+CALL sp_buscarProveedor(1);
 
 DELIMITER $$
 CREATE PROCEDURE sp_crearTelefonoProveedor(
@@ -365,14 +391,14 @@ CREATE PROCEDURE sp_crearProducto(
     IN p_precioUnitario DECIMAL(10,2),
     IN p_precioDocena DECIMAL(10,2),
     IN p_precioMayor DECIMAL(10,2),
-    IN p_imagenProducto VARCHAR(45),
+    -- IN p_imagenProducto VARCHAR(45),
     IN p_existencia INT,
     IN p_codigoTipoProducto INT,
     IN p_codigoProveedor INT
 )
 BEGIN
-    INSERT INTO Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, codigoTipoProducto, codigoProveedor)
-    VALUES(p_codigoProducto, p_descripcionProducto, p_precioUnitario, p_precioDocena, p_precioMayor, p_imagenProducto, p_existencia, p_codigoTipoProducto, p_codigoProveedor);
+    INSERT INTO Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor,existencia, codigoTipoProducto, codigoProveedor)
+    VALUES(p_codigoProducto, p_descripcionProducto, p_precioUnitario, p_precioDocena, p_precioMayor, p_existencia, p_codigoTipoProducto, p_codigoProveedor);
 END$$
 DELIMITER ;
 
@@ -392,7 +418,7 @@ CREATE PROCEDURE sp_actualizarProducto(
     IN p_nuevoPrecioUnitario DECIMAL(10,2),
     IN p_nuevoPrecioDocena DECIMAL(10,2),
     IN p_nuevoPrecioMayor DECIMAL(10,2),
-    IN p_nuevaImagenProducto VARCHAR(45),
+    -- IN p_nuevaImagenProducto VARCHAR(45),
     IN p_nuevaExistencia INT,
     IN p_nuevoCodigoTipoProducto INT,
     IN p_nuevoCodigoProveedor INT
@@ -403,7 +429,7 @@ BEGIN
         precioUnitario = p_nuevoPrecioUnitario,
         precioDocena = p_nuevoPrecioDocena,
         precioMayor = p_nuevoPrecioMayor,
-        imagenProducto = p_nuevaImagenProducto,
+        -- imagenProducto = p_nuevaImagenProducto,
         existencia = p_nuevaExistencia,
         codigoTipoProducto = p_nuevoCodigoTipoProducto,
         codigoProveedor = p_nuevoCodigoProveedor
@@ -412,14 +438,14 @@ END$$
 DELIMITER ;
 
 
+DELIMITER $$
 CREATE PROCEDURE sp_eliminarProducto(
     IN codigoProducto VARCHAR(15)
 )
 BEGIN
     DELETE FROM Productos
-    WHERE codigoProducto = codigoProducto
+    WHERE codigoProducto = codigoProducto;
 END$$
-
 DELIMITER ;
 
 
@@ -624,6 +650,7 @@ CALL sp_actualizarCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco',
 -- CALL sp_eliminarCliente(1);
 
 CALL sp_crearTipoProducto(1,"Proteínas");
+CALL sp_crearTipoProducto(2,"aaaaa");
 CALL sp_listarTipoProducto();
 CALL sp_actualizarTipoProducto(1, 'Proteina Sintetica');
 -- CALL sp_eliminarTipoProducto(1);
@@ -631,7 +658,7 @@ CALL sp_actualizarTipoProducto(1, 'Proteina Sintetica');
 CALL sp_crearCompras(1234, '2024-02-06', "ejemplo1", 0.00);
 CALL sp_listarCompras();
 CALL sp_actualizarCompra(1234, '2024-05-06', "ejemplo2", 0.00);
-CALL sp_eliminarCompra(1234);
+-- CALL sp_eliminarCompra(1234);
 
 CALL sp_crearCargoEmpleado(1234,"Gerente","administtrar tienda");
 CALL sp_listarCargoEmpleado();
@@ -639,6 +666,10 @@ CALL sp_actualizarCargoEmpleado(1234,"JEFE","Mandar");
 -- CALL sp_eliminarCargoEmpleado(1234);
 
 CALL sp_crearProveedor(1, '1234567890', 'Proveedor Ejemplo', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
+CALL sp_crearProveedor(2, '1234567890', 'a', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
+CALL sp_crearProveedor(3, '1234567890', 'b', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
+CALL sp_crearProveedor(4, '1234567890', 'c', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
+
 CALL sp_listarProveedores();
 CALL sp_actualizarProveedor(1, '9876543210', 'Nuevo Nombre', 'Nuevos Apellidos', 'Nueva Dirección', 'Nueva Razón Social', 'Nuevo Contacto Principal', 'www.nuevaweb.com');
 -- CALL sp_eliminarProveedor(2);
@@ -653,9 +684,9 @@ CALL sp_listarEmailsProveedor();
 CALL sp_actualizarEmailProveedor(1234, "nuevoejemplo@proveedor.com", "Nueva dirección de correo electrónico", 1);
 -- CALL sp_eliminarEmailProveedor(1234, 1);
 
-CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 'imagen.jpg', 100, 1, 1);
+CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 100, 1, 1);
 CALL sp_listarProductos();
-CALL sp_actualizarProducto('ABC123', 'Nuevo', 20.99, 199.99, 299.99, 'nueva_imagen.jpg', 200, 1, 1);
+CALL sp_actualizarProducto('ABC123', 'Nuevo', 20.99, 199.99, 299.99, 200, 1, 1);
 -- CALL sp_eliminarProducto('ABC123');
 
 CALL sp_crearDetalleCompra(1, 10.99, 5, 'ABC123', 1234);

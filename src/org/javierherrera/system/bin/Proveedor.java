@@ -106,6 +106,11 @@ public class Proveedor {
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
+
+    @Override
+    public String toString() {
+        return getNombreProveedor() + " | " + getCodigoProveedor();
+    }
     
     
 }

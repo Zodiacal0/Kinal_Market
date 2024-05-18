@@ -82,13 +82,13 @@ FOREIGN KEY (codigoProveedor) REFERENCES Proveedores (codigoProveedor)
 );
 
 CREATE TABLE Productos(
-	
+		
 codigoProducto varchar(15),
 descripcionProducto varchar(15),
 precioUnitario decimal(10,2),
 precioDocena decimal(10,2),
 precioMayor decimal(10,2),
-imagenProducto varchar(45),
+-- imagenProducto varchar(45),
 existencia int,
 codigoTipoProducto int,
 codigoProveedor int,
