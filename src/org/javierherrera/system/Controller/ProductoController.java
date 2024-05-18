@@ -426,14 +426,14 @@ public class ProductoController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if(event.getSource() == btn_Volver){
+        if (event.getSource() == btn_Volver) {
             escenarioPrincipal.MainMenuView();
-        }
-        if(event.getSource() == btn_Siguiente){
+        } else if (event.getSource() == btn_Siguiente) { // Cambia 'else' por 'else if'
             escenarioPrincipal.DetalleProductos();
         }
-        
     }
+
+
 
     public Main getEscenarioPrincipal() {
         return escenarioPrincipal;

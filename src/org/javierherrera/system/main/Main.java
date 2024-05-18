@@ -36,7 +36,7 @@ public class Main extends Application {
 
         this.escenarioPrincipal = escenarioPrincipal;
         this.escenarioPrincipal.setTitle("Kinal Shop");
-        DetalleProductos();
+        MainMenuView();
         escenarioPrincipal.show();
 
         // Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
