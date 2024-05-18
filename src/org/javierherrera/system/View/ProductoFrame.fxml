@@ -49,6 +49,7 @@
             <Button fx:id="btn_editarC" mnemonicParsing="false" onAction="#editar" prefHeight="60.0" prefWidth="114.0" text="Editar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button fx:id="btn_EliminarC" mnemonicParsing="false" onAction="#eliminar" prefHeight="60.0" prefWidth="114.0" text="Eliminar" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Button fx:id="btn_reportesC" mnemonicParsing="false" onAction="#reportes" prefHeight="60.0" prefWidth="114.0" text="Reportes" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <Button fx:id="btn_Siguiente" mnemonicParsing="false" onAction="#reportes" prefHeight="60.0" prefWidth="114.0" text="Siguiente" GridPane.columnIndex="4" />
          </children>
       </GridPane>
       <GridPane layoutX="54.0" layoutY="331.0">

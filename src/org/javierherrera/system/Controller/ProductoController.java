@@ -91,6 +91,8 @@ public class ProductoController implements Initializable {
     private ComboBox<Proveedor> cmb_codigoProveedor;
     @FXML
     private Button btn_Volver;
+    @FXML
+    private Button btn_Siguiente;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -424,7 +426,13 @@ public class ProductoController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        escenarioPrincipal.MainMenuView();
+        if(event.getSource() == btn_Volver){
+            escenarioPrincipal.MainMenuView();
+        }
+        if(event.getSource() == btn_Siguiente){
+            escenarioPrincipal.DetalleProductos();
+        }
+        
     }
 
     public Main getEscenarioPrincipal() {
