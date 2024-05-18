@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.javierherrera.system.Controller;
 
@@ -27,7 +26,6 @@ import javax.swing.JOptionPane;
 import org.javierherrera.system.bin.Compras;
 import org.javierherrera.system.bin.DetalleProducto;
 import org.javierherrera.system.bin.Producto;
-import org.javierherrera.system.bin.Proveedor;
 import org.javierherrera.system.bin.TipoDeProducto;
 import org.javierherrera.system.dao.Conexion;
 import org.javierherrera.system.main.Main;
@@ -37,106 +35,76 @@ import org.javierherrera.system.main.Main;
  * @author Javier
  */
 public class DetalleProductoController implements Initializable {
-
-    private ObservableList<Producto> listaProducto;
-    private ObservableList<Compras> listaCompras;
     private ObservableList<DetalleProducto> listaDetalleProducto;
+    private ObservableList<Producto> listaProducto;
+    private ObservableList<Compras> ListaCompras;
     private Main escenarioPrincipal;
+
+   
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NULL
     }
-
     private operaciones tipoDeOperaciones = operaciones.NULL;
-
-    @FXML
-    private Button btn_EliminarC;
-
-    @FXML
-    private Button btn_Volver;
-
-    @FXML
-    private Button btn_agregarC;
-
-    @FXML
-    private Button btn_editarC;
-
-    @FXML
-    private Button btn_reportesC;
-
-    @FXML
-    private ComboBox cmb_codigoProducto;
-
-    @FXML
-    private ComboBox cmb_numeroDocumento;
-
-    @FXML
-    private TableColumn col_cantidad;
-
-    @FXML
-    private TableColumn col_codigoDetalleCompra;
-
-    @FXML
-    private TableColumn col_codigoProducto;
-
-    @FXML
-    private TableColumn col_costoUnitario;
-
-    @FXML
-    private TableColumn col_numeroDocumento;
-
-    @FXML
-    private TableView tv_Producto;
-
-    @FXML
-    private TextField txt_cantidad;
-
-    @FXML
-    private TextField txt_codigoDetalleCompra;
-
-    @FXML
-    private TextField txt_costoUnitario;
     
-
+    @FXML private Button btn_EliminarC;
+    @FXML private Button btn_Volver;
+    @FXML private Button btn_agregarC;
+    @FXML private Button btn_editarC;
+    @FXML private Button btn_reportesC;
+    @FXML private ComboBox cmb_codigoProducto;
+    @FXML private ComboBox cmb_numeroDocumento;
+    @FXML private TableColumn<DetalleProducto, Integer> col_cantidad;
+    @FXML private TableColumn<DetalleProducto, Double> col_codigoDetalleCompra;
+    @FXML private TableColumn<DetalleProducto, Integer> col_codigoProducto;
+    @FXML private TableColumn<DetalleProducto, String> col_costoUnitario;
+    @FXML private TableColumn<DetalleProducto, Integer> col_numeroDocumento;
+    @FXML private TableView<DetalleProducto> tv_DetalleProducto;
+    @FXML private TextField txt_cantidad;
+    @FXML private TextField txt_costoUnitario;
+    @FXML private TextField txt_codigoDetalleCompra;
+   
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cargarDatos();
-        cmb_codigoProducto.setItems(getProducto());
-        cmb_numeroDocumento.setItems(getCompras());
+        try {
+            cargarDatos();
+            cmb_codigoProducto.setItems(getProducto());
+            cmb_numeroDocumento.setItems(getCompras());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar los datos: " + e.getMessage());
+        }
     }
 
-    public void cargarDatos() {
-        tv_Producto.setItems(getDetalleProducto());
+    
+    public void cargarDatos() throws SQLException {
+        tv_DetalleProducto.setItems(getDetalleProducto());
         col_codigoDetalleCompra.setCellValueFactory(new PropertyValueFactory<>("codigoDetalleCompra"));
         col_costoUnitario.setCellValueFactory(new PropertyValueFactory<>("costoUnitario"));
         col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         col_codigoProducto.setCellValueFactory(new PropertyValueFactory<>("codigoProducto"));
         col_numeroDocumento.setCellValueFactory(new PropertyValueFactory<>("numeroDocumento"));
     }
-
-    public ObservableList<DetalleProducto> getDetalleProducto() {
+    
+    public ObservableList<DetalleProducto> getDetalleProducto() throws SQLException {
         ArrayList<DetalleProducto> lista = new ArrayList<>();
-        try {
-            Connection conexion = Conexion.getInstance().getConexion();
-            if (conexion != null) {
-                try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_listarProductos()}");
-                     ResultSet resultado = procedimiento.executeQuery()) {
-                    while (resultado.next()) {
-                        lista.add(new DetalleProducto(
-                                resultado.getInt("codigoDetalleCompra"),
-                                resultado.getDouble("costoUnitario"),
-                                resultado.getInt("cantidad"),
-                                resultado.getString("codigoProducto"),
-                                resultado.getInt("numeroDocumento")));
-                    }
+        Connection conexion = Conexion.getInstance().getConexion();
+        if (conexion != null) {
+            try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_listarDetallesCompra()}");
+                 ResultSet resultado = procedimiento.executeQuery()) {
+                while (resultado.next()) {
+                    lista.add(new DetalleProducto(
+                            resultado.getInt("codigoDetalleCompra"),
+                            resultado.getDouble("costoUnitario"),
+                            resultado.getInt("cantidad"),
+                            resultado.getString("codigoProducto"),
+                            resultado.getInt("numeroDocumento")
+                    ));
                 }
-            } else {
-                System.out.println("No se pudo establecer conexión con la base de datos.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return listaDetalleProducto = FXCollections.observableList(lista);
+        listaDetalleProducto = FXCollections.observableList(lista);
+        return listaDetalleProducto;
     }
     
     public ObservableList<Producto> getProducto() {
@@ -166,7 +134,7 @@ public class DetalleProductoController implements Initializable {
         }
         return listaProducto = FXCollections.observableList(lista);
     }
-
+    
     public ObservableList<Compras> getCompras() {
         ArrayList<Compras> lista = new ArrayList<>();
         try {
@@ -191,12 +159,10 @@ public class DetalleProductoController implements Initializable {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error inesperado: " + e.getMessage());
         }
-        return listaCompras = FXCollections.observableList(lista);
+        return ListaCompras = FXCollections.observableList(lista);
     }
-
-   
-
-    public void Agregar() {
+    
+    public void Agregar() throws SQLException {
         switch (tipoDeOperaciones) {
             case NULL:
                 activarControles();
@@ -219,10 +185,11 @@ public class DetalleProductoController implements Initializable {
                 break;
         }
     }
-
+    
     public void guardar() {
         DetalleProducto reg = new DetalleProducto();
         Object codigoProductoObj = cmb_codigoProducto.getSelectionModel().getSelectedItem();
+        System.out.println("Tipo de objeto seleccionado en cmb_codigoProducto: " + codigoProductoObj.getClass().getName());
         if (codigoProductoObj instanceof Producto) {
             Producto codigoProducto = (Producto) codigoProductoObj;
             reg.setCodigoProducto(codigoProducto.getCodigoProducto());
@@ -232,8 +199,8 @@ public class DetalleProductoController implements Initializable {
         }
         Object numeroDocumentoObj = cmb_numeroDocumento.getSelectionModel().getSelectedItem();
         if (numeroDocumentoObj instanceof Compras) {
-            Compras numeroDoc = (Compras) numeroDocumentoObj;
-            reg.setNumeroDocumento(numeroDoc.getNumeroDocumento());
+            Compras numeroDocumento = (Compras) numeroDocumentoObj;
+            reg.setNumeroDocumento(numeroDocumento.getNumeroDocumento());
         } else {
             System.err.println("Error: Debe seleccionar un proveedor válido.");
             return;
@@ -242,13 +209,14 @@ public class DetalleProductoController implements Initializable {
         reg.setCostoUnitario(Double.parseDouble(txt_costoUnitario.getText()));
         reg.setCantidad(Integer.parseInt(txt_cantidad.getText()));
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_crearProducto(?, ?, ?, ?, ?, ?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_crearDetalleCompra(?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, reg.getCodigoDetalleCompra());
             procedimiento.setDouble(2, reg.getCostoUnitario());
             procedimiento.setInt(3, reg.getCantidad());
             procedimiento.setString(4, reg.getCodigoProducto());
             procedimiento.setInt(5, reg.getNumeroDocumento());
             procedimiento.execute();
+            
             listaDetalleProducto.add(reg);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -257,26 +225,44 @@ public class DetalleProductoController implements Initializable {
     }
     
     public void seleccionar() {
-    if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
-        DetalleProducto detalleProductoSeleccionado = (DetalleProducto) tv_Producto.getSelectionModel().getSelectedItem();
-        txt_codigoDetalleCompra.setText(String.valueOf(detalleProductoSeleccionado.getCodigoDetalleCompra()));
-        txt_costoUnitario.setText(String.valueOf(detalleProductoSeleccionado.getCostoUnitario()));
-        txt_cantidad.setText(String.valueOf(detalleProductoSeleccionado.getCantidad()));
-        cmb_codigoProducto.getSelectionModel().select(buscarCodigoProducto(detalleProductoSeleccionado.getCodigoProducto()));
-        cmb_numeroDocumento.getSelectionModel().select(buscarNumeroDocumento(detalleProductoSeleccionado.getNumeroDocumento()));
+        if (tv_DetalleProducto.getSelectionModel().getSelectedItem() != null) {
+            DetalleProducto productoSeleccionado = tv_DetalleProducto.getSelectionModel().getSelectedItem();
+            txt_codigoDetalleCompra.setText(String.valueOf(productoSeleccionado.getCodigoDetalleCompra()));
+            txt_costoUnitario.setText(String.valueOf(productoSeleccionado.getCostoUnitario()));
+            txt_cantidad.setText(String.valueOf(productoSeleccionado.getCantidad()));
+            cmb_codigoProducto.getSelectionModel().select(buscarProducto(productoSeleccionado.getCodigoProducto()));
+            cmb_numeroDocumento.getSelectionModel().select(buscarCompras(productoSeleccionado.getNumeroDocumento()));
+        }
     }
+    
+    private Producto buscarProducto(String codigoProducto) {
+    for (Producto tipo : listaProducto) {
+        if (tipo.getCodigoProducto().equals(codigoProducto)) {
+            return tipo;
+        }
+    }
+    return null;
 }
 
+    private Compras buscarCompras(int numeroDocumento) {
+        for (Compras tipo : ListaCompras) {
+            if (tipo.getNumeroDocumento() == numeroDocumento) {
+                return tipo;
+            }
+        }
+        return null;
+    }
+    
     public void editar() {
         switch (tipoDeOperaciones) {
             case NULL:
-                if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
-                    DetalleProducto detalleProductoSeleccionado = (DetalleProducto) tv_Producto.getSelectionModel().getSelectedItem();
-                    txt_codigoDetalleCompra.setText(String.valueOf(detalleProductoSeleccionado.getCodigoDetalleCompra()));
-                    txt_costoUnitario.setText(String.valueOf(detalleProductoSeleccionado.getCostoUnitario()));
-                    txt_cantidad.setText(String.valueOf(detalleProductoSeleccionado.getCantidad()));
-                    cmb_codigoProducto.getSelectionModel().select(buscarCodigoProducto(detalleProductoSeleccionado.getCodigoProducto()));
-                    cmb_numeroDocumento.getSelectionModel().select(buscarNumeroDocumento(detalleProductoSeleccionado.getNumeroDocumento()));
+                if (tv_DetalleProducto.getSelectionModel().getSelectedItem() != null) {
+                    DetalleProducto productoSeleccionado = tv_DetalleProducto.getSelectionModel().getSelectedItem();
+                    txt_codigoDetalleCompra.setText(String.valueOf(productoSeleccionado.getCodigoDetalleCompra()));
+                    txt_costoUnitario.setText(String.valueOf(productoSeleccionado.getCostoUnitario()));
+                    txt_cantidad.setText(String.valueOf(productoSeleccionado.getCantidad()));
+                    cmb_codigoProducto.getSelectionModel().select(buscarProducto(productoSeleccionado.getCodigoProducto()));
+                    cmb_numeroDocumento.getSelectionModel().select(buscarCompras(productoSeleccionado.getNumeroDocumento()));
 
                     btn_editarC.setText("Actualizar");
                     btn_reportesC.setText("Cancelar");
@@ -295,52 +281,60 @@ public class DetalleProductoController implements Initializable {
                 btn_agregarC.setDisable(false);
                 btn_EliminarC.setDisable(false);
                 desactivarControles();
-                cargarDatos();
+                try {
+                    cargarDatos();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.err.println("Error al cargar los datos: " + e.getMessage());
+                }
                 limpiarControles();
                 tipoDeOperaciones = operaciones.NULL;
                 break;
         }
     }
 
+    
     public void actualizar() {
-        DetalleProducto detalleProductoSeleccionado = (DetalleProducto) tv_Producto.getSelectionModel().getSelectedItem();
-        detalleProductoSeleccionado.setCodigoDetalleCompra(Integer.parseInt(txt_codigoDetalleCompra.getText()));
-        detalleProductoSeleccionado.setCostoUnitario(Double.parseDouble(txt_costoUnitario.getText()));
-        detalleProductoSeleccionado.setCantidad(Integer.parseInt(txt_cantidad.getText()));
+        DetalleProducto productoSeleccionado = tv_DetalleProducto.getSelectionModel().getSelectedItem();
+        productoSeleccionado.setCodigoDetalleCompra(Integer.parseInt(txt_codigoDetalleCompra.getText()));
+        productoSeleccionado.setCostoUnitario(Double.parseDouble(txt_costoUnitario.getText()));
+        productoSeleccionado.setCantidad(Integer.parseInt(txt_cantidad.getText()));
 
         Object codigoProductoObj = cmb_codigoProducto.getSelectionModel().getSelectedItem();
-        if (codigoProductoObj instanceof TipoDeProducto) {
+        if (codigoProductoObj instanceof Producto) {
             Producto codigoProducto = (Producto) codigoProductoObj;
-            codigoProducto.setCodigoTipoProducto(codigoProducto.getCodigoTipoProducto());
+            productoSeleccionado.setCodigoProducto(codigoProducto.getCodigoProducto());
         } else {
             System.err.println("Error: Debe seleccionar un tipo de producto válido.");
             return;
         }
 
-        Object numeroDocObj = cmb_numeroDocumento.getSelectionModel().getSelectedItem();
-        if (numeroDocObj instanceof Compras) {
-            Proveedor numeroDoc = (Proveedor) numeroDocObj;
-            numeroDoc.setCodigoProveedor(numeroDoc.getCodigoProveedor());
+        // Verificar y asignar el proveedor seleccionado
+        Object numeroDocumentoObj = cmb_numeroDocumento.getSelectionModel().getSelectedItem();
+        if (numeroDocumentoObj instanceof Compras) {
+            Compras numeroDocumento = (Compras) numeroDocumentoObj;
+            productoSeleccionado.setNumeroDocumento(numeroDocumento.getNumeroDocumento());
         } else {
             System.err.println("Error: Debe seleccionar un proveedor válido.");
             return;
         }
 
+        // Intentar ejecutar el procedimiento almacenado
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_actualizarProducto(?, ?, ?, ?, ?, ?, ?, ?)}");
-            procedimiento.setInt(1, detalleProductoSeleccionado.getCodigoDetalleCompra());
-            procedimiento.setDouble(2, detalleProductoSeleccionado.getCostoUnitario());
-            procedimiento.setInt(3, detalleProductoSeleccionado.getCantidad());
-            procedimiento.setString(4, detalleProductoSeleccionado.getCodigoProducto());
-            procedimiento.setInt(5, detalleProductoSeleccionado.getNumeroDocumento());
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_actualizarDetalleCompra(?, ?, ?, ?, ?)}");
+            procedimiento.setInt(1, productoSeleccionado.getCodigoDetalleCompra());
+            procedimiento.setDouble(2, productoSeleccionado.getCostoUnitario());
+            procedimiento.setInt(3, productoSeleccionado.getCantidad());
+            procedimiento.setString(4, productoSeleccionado.getCodigoProducto());
+            procedimiento.setInt(5, productoSeleccionado.getNumeroDocumento());
             procedimiento.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error al actualizar el producto: " + e.getMessage());
         }
     }
-
-    public void eliminar() {
+    
+        public void eliminar() {
         if (tipoDeOperaciones == operaciones.AGREGAR) {
             desactivarControles();
             limpiarControles();
@@ -350,15 +344,16 @@ public class DetalleProductoController implements Initializable {
             btn_reportesC.setDisable(false);
             tipoDeOperaciones = operaciones.NULL;
         } else {
-            if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Eliminar Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            DetalleProducto productoSeleccionado = tv_DetalleProducto.getSelectionModel().getSelectedItem();
+            if (productoSeleccionado != null) {
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Eliminar Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (respuesta == JOptionPane.YES_OPTION) {
                     try {
-                        DetalleProducto detalleProductoSeleccionado = (DetalleProducto) tv_Producto.getSelectionModel().getSelectedItem();
-                        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_eliminarProducto(?)}");
-                        procedimiento.setInt(1, detalleProductoSeleccionado.getCodigoDetalleCompra()); 
+                        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_eliminarDetalleProducto(?)}");
+                        procedimiento.setInt(1, productoSeleccionado.getCodigoDetalleCompra());
                         procedimiento.execute();
-                        listaDetalleProducto.remove(detalleProductoSeleccionado);
+                        listaProducto.remove(productoSeleccionado);
+                        limpiarControles();
                     } catch (SQLException e) {
                         e.printStackTrace();
                         System.err.println("Error al eliminar el producto: " + e.getMessage());
@@ -370,7 +365,7 @@ public class DetalleProductoController implements Initializable {
         }
     }
 
-    // Métodos de activación, desactivación y limpieza de controles
+ 
     public void activarControles() {
         txt_codigoDetalleCompra.setEditable(true);
         txt_costoUnitario.setEditable(true);
@@ -397,8 +392,8 @@ public class DetalleProductoController implements Initializable {
     
     public void reportes(){
     
-    }
-
+    }   
+    
     @FXML
     private void handleButtonAction(ActionEvent event) {
         escenarioPrincipal.MainMenuView();
@@ -411,23 +406,5 @@ public class DetalleProductoController implements Initializable {
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
-
-    private Producto buscarCodigoProducto(String codigoProducto) {
-        for (Producto tipo : listaProducto) {
-            if (tipo.getCodigoProducto()== codigoProducto) {
-                return tipo;
-            }
-        }
-        return null;
-    }
-
-    private Compras buscarNumeroDocumento(int numeroDocumento) {
-        for (Compras Compras : listaCompras) {
-            if (Compras.getNumeroDocumento()== numeroDocumento) {
-                return Compras;
-            }
-        }
-        return null;
-    }
+    
 }
-

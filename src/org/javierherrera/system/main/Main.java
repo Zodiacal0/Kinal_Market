@@ -16,6 +16,7 @@ import org.javierherrera.system.Controller.AboutUsController;
 import org.javierherrera.system.Controller.CargoEmpleadoController;
 import org.javierherrera.system.Controller.ClienteController;
 import org.javierherrera.system.Controller.ComprasController;
+import org.javierherrera.system.Controller.DetalleProductoController;
 import org.javierherrera.system.Controller.ProveedorController;
 import org.javierherrera.system.Controller.MainFrameController;
 import org.javierherrera.system.Controller.ProductoController;
@@ -35,7 +36,7 @@ public class Main extends Application {
 
         this.escenarioPrincipal = escenarioPrincipal;
         this.escenarioPrincipal.setTitle("Kinal Shop");
-        MainMenuView();
+        DetalleProductos();
         escenarioPrincipal.show();
 
         // Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
@@ -126,6 +127,15 @@ public class Main extends Application {
     public void Productos() {
         try {
             ProductoController prod = (ProductoController) cambiarEscena("ProductoFrame.fxml", 979.0,558.0);
+            prod.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void DetalleProductos() {
+        try {
+            DetalleProductoController prod = (DetalleProductoController) cambiarEscena("DetalleProducto.fxml", 979.0,558.0);
             prod.setEscenarioPrincipal(this);
         } catch (Exception e) {
             e.printStackTrace();

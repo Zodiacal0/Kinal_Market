@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="979.0" stylesheets="@../resource/ClienteFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.ProductoController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="979.0" stylesheets="@../resource/ClienteFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.DetalleProductoController">
    <children>
       <ImageView fitHeight="558.0" fitWidth="979.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Producto.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tv_Producto" layoutX="87.0" layoutY="98.0" onMouseClicked="#seleccionar" prefHeight="114.0" prefWidth="806.0">
+      <TableView fx:id="tv_DetalleProducto" layoutX="87.0" layoutY="98.0" onMouseClicked="#seleccionar" prefHeight="114.0" prefWidth="806.0">
         <columns>
           <TableColumn fx:id="col_codigoDetalleCompra" prefWidth="166.0" text="codigoDetalleCompra" />
           <TableColumn fx:id="col_costoUnitario" prefWidth="189.0" text="costoUnitario" />
@@ -63,7 +63,7 @@
             <Label text="Costo Unitario" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="cantidad" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="txt_codigoDetalleCompra" prefHeight="25.0" prefWidth="97.0" GridPane.columnIndex="1" />
-            <TextField fx:id="txt_descripcionProducto" prefHeight="25.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txt_costoUnitario" prefHeight="25.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txt_cantidad" prefHeight="25.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>

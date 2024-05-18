@@ -67,6 +67,9 @@ public class Compras {
         this.escenarioPrincipal = escenarioPrincipal;
     }
 
-    
+    @Override
+    public String toString() {
+        return getDescripcion() + " | " + getNumeroDocumento();
+    }
     
 }

@@ -131,6 +131,16 @@ DELIMITER ;
 CALL sp_listarCompras();
 
 DELIMITER $$
+CREATE PROCEDURE sp_buscarCompras(IN numeroDocumento INT)
+BEGIN
+    SELECT * FROM Compras
+    WHERE numeroDocumento;
+END$$
+DELIMITER ;
+
+CALL sp_buscarCompras(1234);
+
+DELIMITER $$
 CREATE PROCEDURE sp_actualizarCompra(
     IN numeroDocumento INT,
     IN nuevaFechaDocumento DATE,
@@ -655,9 +665,9 @@ CALL sp_listarTipoProducto();
 CALL sp_actualizarTipoProducto(1, 'Proteina Sintetica');
 -- CALL sp_eliminarTipoProducto(1);
 
-CALL sp_crearCompras(1234, '2024-02-06', "ejemplo1", 0.00);
+CALL sp_crearCompras(1234, '2024-02-06', "ejemplo1", 1.00);
 CALL sp_listarCompras();
-CALL sp_actualizarCompra(1234, '2024-05-06', "ejemplo2", 0.00);
+CALL sp_actualizarCompra(1234, '2024-05-06', "ejemplo2", 1.00);
 -- CALL sp_eliminarCompra(1234);
 
 CALL sp_crearCargoEmpleado(1234,"Gerente","administtrar tienda");
