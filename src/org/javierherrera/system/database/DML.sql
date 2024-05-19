@@ -214,64 +214,95 @@ DELIMITER $$
 
 CREATE PROCEDURE sp_crearProveedor(
     IN p_codigoProveedor INT,
-    IN p_nitProveedor VARCHAR(10),
-    IN p_nombreProveedor VARCHAR(60),
+    IN p_NITProveedor VARCHAR(13),
+    IN p_nombresProveedor VARCHAR(60),
     IN p_apellidosProveedor VARCHAR(60),
     IN p_direccionProveedor VARCHAR(150),
     IN p_razonSocial VARCHAR(60),
     IN p_contactoPrincipal VARCHAR(100),
-    IN p_paginaWeb VARCHAR(50)
+    IN p_paginaWeb VARCHAR(50),
+    IN p_telefonoProveedor VARCHAR(13),
+    IN p_emailProveedor VARCHAR(50)
 )
 BEGIN
-    INSERT INTO Proveedores(codigoProveedor, nitProveedor, nombreProveedor, apellidosProveedor, direccionProveedor, razonSocial, contactoPrincipal, paginaWeb)
-    VALUES(p_codigoProveedor, p_nitProveedor, p_nombreProveedor, p_apellidosProveedor, p_direccionProveedor, p_razonSocial, p_contactoPrincipal, p_paginaWeb);
+    INSERT INTO proveedores (
+        codigoProveedor,
+        NITProveedor,
+        nombresProveedor,
+        apellidosProveedor,
+        direccionProveedor,
+        razonSocial,
+        contactoPrincipal,
+        paginaWeb,
+        telefonoProveedor,
+        emailProveedor
+    ) VALUES (
+        p_codigoProveedor,
+        p_NITProveedor,
+        p_nombresProveedor,
+        p_apellidosProveedor,
+        p_direccionProveedor,
+        p_razonSocial,
+        p_contactoPrincipal,
+        p_paginaWeb,
+        p_telefonoProveedor,
+        p_emailProveedor
+    );
 END$$
+
 DELIMITER ;
+
 
 DELIMITER $$
+
 CREATE PROCEDURE sp_listarProveedores()
 BEGIN
-    SELECT * FROM Proveedores;
+    SELECT * FROM proveedores;
 END$$
+
 DELIMITER ;
 
-CALL sp_listarProveedores();
 
 DELIMITER $$
 
 CREATE PROCEDURE sp_actualizarProveedor(
     IN p_codigoProveedor INT,
-    IN p_nitProveedor VARCHAR(10),
-    IN p_nombreProveedor VARCHAR(60),
-    IN p_apellidosProveedor VARCHAR(60),
-    IN p_direccionProveedor VARCHAR(150),
-    IN p_razonSocial VARCHAR(60),
-    IN p_contactoPrincipal VARCHAR(100),
-    IN p_paginaWeb VARCHAR(50)
+    IN p_nuevosNombresProveedor VARCHAR(60),
+    IN p_nuevosApellidosProveedor VARCHAR(60),
+    IN p_nuevaDireccionProveedor VARCHAR(150),
+    IN p_nuevaRazonSocial VARCHAR(60),
+    IN p_nuevoContactoPrincipal VARCHAR(100),
+    IN p_nuevaPaginaWeb VARCHAR(50),
+    IN p_nuevoTelefonoProveedor VARCHAR(13),
+    IN p_nuevoEmailProveedor VARCHAR(50)
 )
 BEGIN
-    UPDATE Proveedores
-    SET nitProveedor = p_nitProveedor,
-        nombreProveedor = p_nombreProveedor,
-        apellidosProveedor = p_apellidosProveedor,
-        direccionProveedor = p_direccionProveedor,
-        razonSocial = p_razonSocial,
-        contactoPrincipal = p_contactoPrincipal,
-        paginaWeb = p_paginaWeb
+    UPDATE proveedores
+    SET nombresProveedor = p_nuevosNombresProveedor,
+        apellidosProveedor = p_nuevosApellidosProveedor,
+        direccionProveedor = p_nuevaDireccionProveedor,
+        razonSocial = p_nuevaRazonSocial,
+        contactoPrincipal = p_nuevoContactoPrincipal,
+        paginaWeb = p_nuevaPaginaWeb,
+        telefonoProveedor = p_nuevoTelefonoProveedor,
+        emailProveedor = p_nuevoEmailProveedor
     WHERE codigoProveedor = p_codigoProveedor;
+    
 END$$
+
 DELIMITER ;
 
 DELIMITER $$
+
 CREATE PROCEDURE sp_eliminarProveedor(
     IN p_codigoProveedor INT
 )
 BEGIN
-    DELETE FROM Proveedores
-    WHERE codigoProveedor = p_codigoProveedor;
+    DELETE FROM proveedores WHERE codigoProveedor = p_codigoProveedor;
 END$$
 
 DELIMITER ;
+
 
 DELIMITER $$
 CREATE PROCEDURE sp_buscarProveedor(
@@ -285,111 +316,6 @@ END$$
 DELIMITER ;
 
 CALL sp_buscarProveedor(1);
-
-DELIMITER $$
-CREATE PROCEDURE sp_crearTelefonoProveedor(
-    IN p_codigoTelefonoProveedor INT,
-    IN p_numeroPrincipal VARCHAR(8),
-    IN p_numeroSecundario VARCHAR(8),
-    IN p_observaciones VARCHAR(45),
-    IN p_codigoProveedor INT
-)
-BEGIN
-    INSERT INTO TelefonoProveedor(codigoTelefonoProveedor, numeroPincipal, numeroSecundario, observaciones, codigoProveedor)
-    VALUES(p_codigoTelefonoProveedor, p_numeroPrincipal, p_numeroSecundario, p_observaciones, p_codigoProveedor);
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE PROCEDURE sp_listarTelefonosProveedor()
-BEGIN
-    SELECT * FROM TelefonoProveedor;
-END$$
-DELIMITER ;
-
-CALL sp_listarTelefonosProveedor();
-
-DELIMITER $$
-CREATE PROCEDURE sp_actualizarTelefonoProveedor(
-    IN p_codigoTelefonoProveedor INT,
-    IN p_nuevoNumeroPrincipal VARCHAR(8),
-    IN p_nuevoNumeroSecundario VARCHAR(8),
-    IN p_nuevasObservaciones VARCHAR(45),
-    IN p_codigoProveedor INT
-)
-BEGIN
-    UPDATE TelefonoProveedor
-    SET numeroPincipal = p_nuevoNumeroPrincipal,
-        numeroSecundario = p_nuevoNumeroSecundario,
-        observaciones = p_nuevasObservaciones
-    WHERE codigoTelefonoProveedor = p_codigoTelefonoProveedor
-        AND codigoProveedor = p_codigoProveedor;
-END$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE sp_eliminarTelefonoProveedor(
-    IN codigoTelefonoProveedor INT
-)
-BEGIN
-    DELETE FROM TelefonoProveedor
-    WHERE codigoTelefonoProveedor = codigoTelefonoProveedor;
-END$$
-DELIMITER ;
-
-DELIMITER $$
-
-CREATE PROCEDURE sp_crearEmailProveedor(
-    IN p_codigoEmailProveedor INT,
-    IN p_emailProveedor VARCHAR(50),
-    IN p_descripcion VARCHAR(100),
-    IN p_codigoProveedor INT
-)
-BEGIN
-    INSERT INTO EmailProveedor(codigoEmailProveedor, emailproveedor, descripcion, codigoProveedor)
-    VALUES(p_codigoEmailProveedor, p_emailProveedor, p_descripcion, p_codigoProveedor);
-END$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE sp_listarEmailsProveedor()
-BEGIN
-    SELECT * FROM EmailProveedor;
-    
-END$$
-DELIMITER ;
-
-CALL sp_listarEmailsProveedor();
-
-DELIMITER $$
-CREATE PROCEDURE sp_actualizarEmailProveedor(
-    IN p_codigoEmailProveedor INT,
-    IN p_nuevoEmailProveedor VARCHAR(50),
-    IN p_nuevaDescripcion VARCHAR(100),
-    IN p_codigoProveedor INT
-)
-BEGIN
-    UPDATE EmailProveedor
-    SET emailproveedor = p_nuevoEmailProveedor,
-        descripcion = p_nuevaDescripcion
-    WHERE codigoEmailProveedor = p_codigoEmailProveedor
-        AND codigoProveedor = p_codigoProveedor;
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE PROCEDURE sp_eliminarEmailProveedor(
-    IN p_codigoEmailProveedor INT,
-    IN p_codigoProveedor INT
-)
-BEGIN
-    DELETE FROM EmailProveedor
-    WHERE codigoEmailProveedor = p_codigoEmailProveedor
-        AND codigoProveedor = p_codigoProveedor;
-END$$
-DELIMITER ;
 
 -- CRUD de Productos
 
@@ -494,6 +420,11 @@ BEGIN
         numeroDocumento = p_nuevoNumeroDocumento
     WHERE codigoDetalleCompra = p_codigoDetalleCompra;
 END$$
+
+
+
+
+DELIMITER $$
 
 CREATE PROCEDURE sp_eliminarDetalleCompra(
     IN p_codigoDetalleCompra INT
@@ -607,7 +538,6 @@ END$$
 
 DELIMITER ;
 
--- CRUD de DetalleFactura 
 DELIMITER $$
 
 CREATE PROCEDURE sp_crearDetalleFactura(
@@ -653,6 +583,29 @@ END$$
 
 DELIMITER ;
 
+DELIMITER $$
+
+CREATE TRIGGER AfterInsertDetalleCompra
+AFTER INSERT ON DetalleCompra
+FOR EACH ROW
+BEGIN
+    DECLARE precioProveedor DECIMAL(10,2);
+    DECLARE precioDocena DECIMAL(10,2);
+    DECLARE precioMayor DECIMAL(10,2);
+
+    SET precioProveedor = NEW.costoUnitario * 1.40;
+    SET precioDocena = precioProveedor * 1.35;
+    SET precioMayor = precioProveedor * 1.25;
+
+    UPDATE Productos
+    SET precioUnitario = precioProveedor,
+        precioDocena = precioDocena,
+        precioMayor = precioMayor
+    WHERE codigoProducto = NEW.codigoProducto;
+END $$
+
+DELIMITER ;
+
 
 CALL sp_crearCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','javierherrera5513@gmail.com');
 CALL sp_listarCliente();
@@ -675,13 +628,14 @@ CALL sp_listarCargoEmpleado();
 CALL sp_actualizarCargoEmpleado(1234,"JEFE","Mandar");
 -- CALL sp_eliminarCargoEmpleado(1234);
 
-CALL sp_crearProveedor(1, '1234567890', 'Proveedor Ejemplo', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
-CALL sp_crearProveedor(2, '1234567890', 'a', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
-CALL sp_crearProveedor(3, '1234567890', 'b', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
-CALL sp_crearProveedor(4, '1234567890', 'c', 'Apellidos del Proveedor', '123 Calle Principal, Ciudad', 'Empresa Ejemplo', 'Juan Pérez', 'www.proveedor.com');
-
+call sp_crearProveedor(1, '0614000000011', 'Gasolinera Express', 'S.A.', 'Av. Principal 123, Zona 1', 'Gasolinera Express S.A.', 'Juan Pérez', 'www.gasolineraexpress.com', '1234567890', 'info@gasolineraexpress.com');
+call sp_crearProveedor(2, '0614000000024', 'Distribuidora de Alimentos', 'Dialiment S.A.', 'Av. Comercial 456, Zona 2', 'Dialiment S.A.', 'María Gómez', 'www.dialiment.com', '2345678901', 'info@dialiment.com');
+call sp_crearProveedor(3, '0614000000037', 'Bebidas Refrescantes', 'Refrescos del Sur S.A.', 'Calle Refrescante 789, Zona 3', 'Refrescos del Sur S.A.', 'Pedro Martínez', 'www.refrescosdelsur.com', '3456789012', 'info@refrescosdelsur.com');
+call sp_crearProveedor(4, '0614000000040', 'Lubricantes y Aceites', 'Lubriaceites Ltda.', 'Carrera Lubricante 101, Zona 4', 'Lubriaceites Ltda.', 'Luis Rodríguez', 'www.lubriaceites.com', '4567890123', 'info@lubriaceites.com');
+call sp_crearProveedor(5, '0614000000053', 'Productos de Limpieza', 'Limpiafacil S.A.', 'Pasaje Limpio 202, Zona 5', 'Limpiafacil S.A.', 'Ana López', 'www.limpiafacil.com', '5678901234', 'info@limpiafacil.com');
+call sp_actualizarProveedor(1,'Juan', 'Perez', 'Calle 123', 'Razón Social', 'Contacto', 'www.proveedor.com', '1234567890', 'proveedor@correo.com');
 CALL sp_listarProveedores();
-CALL sp_actualizarProveedor(1, '9876543210', 'Nuevo Nombre', 'Nuevos Apellidos', 'Nueva Dirección', 'Nueva Razón Social', 'Nuevo Contacto Principal', 'www.nuevaweb.com');
+CALL sp_actualizarProveedor(1, 'Nuevo Nombre', 'Nuevos Apellidos', 'Nueva Dirección', 'Nueva Razón Social', 'Nuevo Contacto Principal', 'www.nuevaweb.com',1234567,'NUEVOCORREGO@GMAIL.COM');
 -- CALL sp_eliminarProveedor(2);
 
 CALL sp_crearTelefonoProveedor(1, "12345678", "87654321", "Sin observaciones", 1);
@@ -707,7 +661,6 @@ CALL sp_actualizarDetalleCompra(1, 15.99, 7, 'ABC123', 1234);
 CALL sp_crearEmpleado(1, 'Juan', 'Pérez', 2000.00, 'Dirección del empleado', 'Matutino', 1234);
 CALL sp_listarEmpleados();
 CALL sp_actualizarEmpleado(1, 'Juan', 'López', 2200.00, 'Nueva Dirección del empleado', 'Vespertino', 1234);
--- CALL sp_eliminarEmpleado(1);
 
 CALL sp_crearFactura(1, 'Pagado', 1000.00, '2024-05-06', 1, 1);
 CALL sp_listarFacturas();

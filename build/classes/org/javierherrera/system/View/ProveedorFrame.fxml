@@ -12,23 +12,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="837.0" stylesheets="@../resource/ClienteFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.ProveedorController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="1064.0" stylesheets="@../resource/ClienteFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.ProveedorController">
    <children>
-      <ImageView fitHeight="473.0" fitWidth="878.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="473.0" fitWidth="880.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Proveedores.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tv_Cliente" layoutX="16.0" layoutY="95.0" onMouseClicked="#seleccionar" prefHeight="114.0" prefWidth="819.0">
+      <TableView fx:id="tv_Cliente" layoutX="16.0" layoutY="95.0" onMouseClicked="#seleccionar" prefHeight="114.0" prefWidth="1042.0">
         <columns>
           <TableColumn fx:id="col_codigoProveedor" prefWidth="103.0" text="codigoProveedor" />
-          <TableColumn fx:id="col_nitProveedor" prefWidth="82.0" text="nitProveedor" />
-            <TableColumn fx:id="col_nombreProveedor" prefWidth="107.0" text="nombreProveedor" />
+          <TableColumn fx:id="col_nitProveedor" prefWidth="82.0" text="NITProveedor" />
+            <TableColumn fx:id="col_nombreProveedor" prefWidth="107.0" text="nombresProveedor" />
             <TableColumn fx:id="col_apellidosProveedor" minWidth="0.0" prefWidth="118.0" text="apellidosProveedor" />
             <TableColumn fx:id="col_direccionProveedor" prefWidth="116.0" text="direccionProveedor" />
             <TableColumn fx:id="col_razonSocial" minWidth="0.0" prefWidth="79.0" text="razonSocial" />
             <TableColumn fx:id="col_contactoPrincipal" prefWidth="108.0" text="contactoPrincipal" />
             <TableColumn fx:id="col_paginaWeb" prefWidth="105.0" text="paginaWeb" />
+            <TableColumn fx:id="col_telefonoProveedor" prefWidth="118.0" text="telefonoProveedor" />
+            <TableColumn fx:id="col_emailProveedor" prefWidth="105.0" text="emailProveedor" />
         </columns>
       </TableView>
       <GridPane layoutX="54.0" layoutY="257.0" prefHeight="38.0" prefWidth="493.0">
@@ -93,5 +95,9 @@
          </children>
       </GridPane>
       <Button fx:id="btn_Volver" layoutX="728.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="83.0" text="Volver" />
+      <Label layoutX="507.0" layoutY="333.0" text="telefonoProveedor" />
+      <TextField fx:id="txt_telefonoProveedor" layoutX="613.0" layoutY="328.0" prefHeight="25.0" prefWidth="97.0" />
+      <Label layoutX="507.0" layoutY="363.0" text="emailProveedor" />
+      <TextField fx:id="txt_emailProveedor" layoutX="613.0" layoutY="358.0" prefHeight="25.0" prefWidth="97.0" />
    </children>
 </Pane>

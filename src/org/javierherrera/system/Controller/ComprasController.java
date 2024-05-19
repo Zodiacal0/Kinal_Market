@@ -43,6 +43,9 @@ public class ComprasController implements Initializable {
 
     private operaciones tipoDeOperaciones = operaciones.NULL;
 
+    @FXML 
+    Button btn_Siguiente;
+    
     @FXML
     private Button btn_EliminarC;
 
@@ -324,6 +327,9 @@ public class ComprasController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if(event.getSource() == btn_Volver){
             escenarioPrincipal.MainMenuView();
+        }
+        if(event.getSource() == btn_Siguiente){
+            escenarioPrincipal.Factura();
         }
     }
 

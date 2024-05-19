@@ -44,42 +44,20 @@ CREATE TABLE CargoEmpleado(
 
 )Engine InnoDB;
 
-CREATE TABLE Proveedores(
-
-codigoProveedor int,
-nitProveedor varchar(10),
-nombreProveedor varchar(60),
-apellidosProveedor varchar(60),
-direccionProveedor varchar(150),
-razonSocial varchar(60),
-contactoPrincipal varchar(100),
-paginaWeb varchar(50),
-PRIMARY KEY PK_codigoProveedor (codigoProveedor)
-
-)Engine InnoDB;
-
-CREATE TABLE TelefonoProveedor(
-
-codigoTelefonoProveedor int,
-numeroPincipal varchar(8),
-numeroSecundario varchar(8),
-observaciones varchar(45),
-codigoProveedor int,
-PRIMARY KEY PK_codigoTelefonoProveedor (codigoTelefonoProveedor),
-FOREIGN KEY (codigoProveedor) REFERENCES Proveedores (codigoProveedor)
-
+create table proveedores(
+	codigoProveedor int,
+    NITProveedor varchar(13),
+    nombresProveedor varchar(60),
+    apellidosProveedor varchar (60),
+    direccionProveedor varchar (150),
+    razonSocial varchar (60),
+    contactoPrincipal varchar (100),
+    paginaWeb varchar(50),
+    telefonoProveedor varchar (13),
+    emailProveedor varchar(50),
+    primary key PK_codigoProveedor(codigoProveedor)
 );
 
-CREATE TABLE EmailProveedor(
-
-codigoEmailProveedor int,
-emailproveedor varchar(50),
-descripcion varchar(100),
-codigoProveedor int,
-PRIMARY KEY PK_codigoEmailProveedor (codigoEmailProveedor),
-FOREIGN KEY (codigoProveedor) REFERENCES Proveedores (codigoProveedor)
-
-);
 
 CREATE TABLE Productos(
 		

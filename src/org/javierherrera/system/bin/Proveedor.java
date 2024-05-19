@@ -11,28 +11,31 @@ import org.javierherrera.system.main.Main;
  * @author Javier
  */
 public class Proveedor {
-    private Main escenarioPrincipal;
-    private int codigoProveedor;
-    private String nitProveedor;
-    private String nombreProveedor;
+   private int codigoProveedor;
+    private String NITProveedor;
+    private String nombresProveedor;
     private String apellidosProveedor;
     private String direccionProveedor;
     private String razonSocial;
     private String contactoPrincipal;
     private String paginaWeb;
+    private String telefonoProveedor;
+    private String emailProveedor;
 
     public Proveedor() {
     }
 
-    public Proveedor(int codigoProveedor, String nitProveedor, String nombreProveedor, String apellidosProveedor, String direccionProveedor, String razonSocial, String contactoPrincipal, String paginaWeb) {
+    public Proveedor(int codigoProveedor, String NITProveedor, String nombresProveedor, String apellidosProveedor, String direccionProveedor, String razonSocial, String contactoPrincipal, String paginaWeb, String telefonoProveedor, String emailProveedor) {
         this.codigoProveedor = codigoProveedor;
-        this.nitProveedor = nitProveedor;
-        this.nombreProveedor = nombreProveedor;
+        this.NITProveedor = NITProveedor;
+        this.nombresProveedor = nombresProveedor;
         this.apellidosProveedor = apellidosProveedor;
         this.direccionProveedor = direccionProveedor;
         this.razonSocial = razonSocial;
         this.contactoPrincipal = contactoPrincipal;
         this.paginaWeb = paginaWeb;
+        this.telefonoProveedor = telefonoProveedor;
+        this.emailProveedor = emailProveedor;
     }
 
     public int getCodigoProveedor() {
@@ -43,20 +46,20 @@ public class Proveedor {
         this.codigoProveedor = codigoProveedor;
     }
 
-    public String getNitProveedor() {
-        return nitProveedor;
+    public String getNITProveedor() {
+        return NITProveedor;
     }
 
-    public void setNitProveedor(String nitProveedor) {
-        this.nitProveedor = nitProveedor;
+    public void setNITProveedor(String NITProveedor) {
+        this.NITProveedor = NITProveedor;
     }
 
-    public String getNombreProveedor() {
-        return nombreProveedor;
+    public String getNombresProveedor() {
+        return nombresProveedor;
     }
 
-    public void setNombreProveedor(String nombreProveedor) {
-        this.nombreProveedor = nombreProveedor;
+    public void setNombresProveedor(String nombresProveedor) {
+        this.nombresProveedor = nombresProveedor;
     }
 
     public String getApellidosProveedor() {
@@ -99,18 +102,28 @@ public class Proveedor {
         this.paginaWeb = paginaWeb;
     }
 
-    public Main getEscenarioPrincipal() {
-        return escenarioPrincipal;
+    public String getTelefonoProveedor() {
+        return telefonoProveedor;
     }
 
-    public void setEscenarioPrincipal(Main escenarioPrincipal) {
-        this.escenarioPrincipal = escenarioPrincipal;
+    public void setTelefonoProveedor(String telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
+    }
+
+    public String getEmailProveedor() {
+        return emailProveedor;
+    }
+
+    public void setEmailProveedor(String emailProveedor) {
+        this.emailProveedor = emailProveedor;
     }
 
     @Override
     public String toString() {
-        return getNombreProveedor() + " | " + getCodigoProveedor();
+        return getNITProveedor() + "    |   "  + getNombresProveedor();
     }
     
+    
+   
     
 }

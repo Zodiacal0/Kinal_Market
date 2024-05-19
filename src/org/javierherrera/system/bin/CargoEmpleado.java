@@ -56,5 +56,13 @@ public class CargoEmpleado {
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
+
+    @Override
+    public String toString() {
+        return getCodigoCargoEmpleado() + " | " + getNombreCargo();
+    }
+
+    
+    
     
 }

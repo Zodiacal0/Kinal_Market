@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.javierherrera.system.Controller;
 
 import java.net.URL;
@@ -30,23 +25,19 @@ import org.javierherrera.system.bin.TipoDeProducto;
 import org.javierherrera.system.dao.Conexion;
 import org.javierherrera.system.main.Main;
 
-/**
- *
- * @author Javier
- */
 public class ProductoController implements Initializable {
 
     private ObservableList<Producto> listaProducto;
     private ObservableList<Proveedor> listaProveedor;
     private ObservableList<TipoDeProducto> listaTipoDeProducto;
     private Main escenarioPrincipal;
-
+    
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NULL
     }
 
     private operaciones tipoDeOperaciones = operaciones.NULL;
-
+    
     @FXML
     private TableView<Producto> tv_Producto;
     @FXML
@@ -96,9 +87,38 @@ public class ProductoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        listaProducto = FXCollections.observableArrayList();
+        listaProveedor = FXCollections.observableArrayList();
+        listaTipoDeProducto = FXCollections.observableArrayList();
+
         cargarDatos();
-        cmb_codigoProveedor.setItems(getProveedor());
+        cmb_codigoProveedor.setItems(getProveedores());
         cmb_codigoTipoProducto.setItems(getTipoDeProducto());
+    }
+
+    public ObservableList<Proveedor> getProveedores() {
+        ArrayList<Proveedor> listaPro = new ArrayList<>();
+        try {
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarProveedores()}");
+            ResultSet resultado = procedimiento.executeQuery();
+            while (resultado.next()) {
+                listaPro.add(new Proveedor(
+                        resultado.getInt("codigoProveedor"),
+                        resultado.getString("NITProveedor"),
+                        resultado.getString("nombresProveedor"),
+                        resultado.getString("apellidosProveedor"),
+                        resultado.getString("direccionProveedor"),
+                        resultado.getString("razonSocial"),
+                        resultado.getString("contactoPrincipal"),
+                        resultado.getString("paginaWeb"),
+                        resultado.getString("telefonoProveedor"),
+                        resultado.getString("emailProveedor")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return FXCollections.observableList(listaPro);
     }
 
     public void cargarDatos() {
@@ -138,7 +158,7 @@ public class ProductoController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return listaProducto = FXCollections.observableList(lista);
+        return FXCollections.observableList(lista);
     }
 
     public ObservableList<TipoDeProducto> getTipoDeProducto() {
@@ -160,36 +180,12 @@ public class ProductoController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return listaTipoDeProducto = FXCollections.observableList(lista);
+        return FXCollections.observableList(lista);
     }
 
-    public ObservableList<Proveedor> getProveedor() {
-        ArrayList<Proveedor> lista = new ArrayList<>();
-        try {
-            Connection conexion = Conexion.getInstance().getConexion();
-            if (conexion != null) {
-                try (PreparedStatement procedimiento = conexion.prepareCall("{CALL sp_listarProveedores()}");
-                     ResultSet resultado = procedimiento.executeQuery()) {
-                    while (resultado.next()) {
-                        lista.add(new Proveedor(
-                                resultado.getInt("codigoProveedor"),
-                                resultado.getString("nitProveedor"),
-                                resultado.getString("nombreProveedor"),
-                                resultado.getString("apellidosProveedor"),
-                                resultado.getString("direccionProveedor"),
-                                resultado.getString("razonSocial"),
-                                resultado.getString("contactoPrincipal"),
-                                resultado.getString("paginaWeb")));
-                    }
-                }
-            } else {
-                System.out.println("No se pudo establecer conexión con la base de datos.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listaProveedor = FXCollections.observableList(lista);
-    }
+    
+
+
 
     public void Agregar() {
         switch (tipoDeOperaciones) {
@@ -428,7 +424,7 @@ public class ProductoController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btn_Volver) {
             escenarioPrincipal.MainMenuView();
-        } else if (event.getSource() == btn_Siguiente) { // Cambia 'else' por 'else if'
+        } else if (event.getSource() == btn_Siguiente) {
             escenarioPrincipal.DetalleProductos();
         }
     }

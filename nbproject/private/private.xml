@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal%20Market/src/org/javierherrera/system/View/DetalleProducto.fxml</file>
-            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal%20Market/src/org/javierherrera/system/main/Main.java</file>
-            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal%20Market/src/org/javierherrera/system/Controller/DetalleProductoController.java</file>
-            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal%20Market/src/org/javierherrera/system/Controller/ProductoController.java</file>
+            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal_Market/src/org/javierherrera/system/Controller/DetalleFacturaController.java</file>
+            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal_Market/src/org/javierherrera/system/Controller/ProductoController.java</file>
+            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal_Market/src/org/javierherrera/system/View/DetalleFactura.fxml</file>
+            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal_Market/src/org/javierherrera/system/main/Main.java</file>
+            <file>file:/C:/Users/Javier/OneDrive%20-%20Fundación%20Kinal%20-Alumnos-/Desktop/Kinal_Market/src/org/javierherrera/system/bin/DetalleFactura.java</file>
         </group>
     </open-files>
 </project-private>

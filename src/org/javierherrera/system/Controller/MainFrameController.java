@@ -35,6 +35,12 @@ public class MainFrameController implements Initializable {
     MenuItem btn_Proveedores;
     @FXML
     MenuItem btn_Productos;
+    @FXML
+    MenuItem btn_Empleados;
+    @FXML
+    MenuItem btn_Facturas;
+    @FXML
+    MenuItem btn_DetalleFactura;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,6 +93,15 @@ public class MainFrameController implements Initializable {
         }
         if (event.getSource() == btn_Productos) {
             escenarioPrincipal.Productos();
+        }
+        if (event.getSource() == btn_Empleados) {
+            escenarioPrincipal.Empleado();
+        }
+        if (event.getSource() == btn_Facturas) {
+            escenarioPrincipal.Factura();
+        }
+        if (event.getSource() == btn_DetalleFactura) {
+            escenarioPrincipal.DetalleFactura();
         }
     }
 }

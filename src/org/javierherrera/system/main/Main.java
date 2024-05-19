@@ -16,11 +16,14 @@ import org.javierherrera.system.Controller.AboutUsController;
 import org.javierherrera.system.Controller.CargoEmpleadoController;
 import org.javierherrera.system.Controller.ClienteController;
 import org.javierherrera.system.Controller.ComprasController;
+import org.javierherrera.system.Controller.DetalleFacturaController;
 import org.javierherrera.system.Controller.DetalleProductoController;
+import org.javierherrera.system.Controller.EmpleadoController;
 import org.javierherrera.system.Controller.ProveedorController;
 import org.javierherrera.system.Controller.MainFrameController;
 import org.javierherrera.system.Controller.ProductoController;
 import org.javierherrera.system.Controller.TipoDeProductoController;
+import org.javierherrera.system.bin.Factura;
 
 /**
  *
@@ -141,11 +144,40 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    public void Empleado() {
+        try {
+            EmpleadoController prod = (EmpleadoController) cambiarEscena("EmpleadosFrame.fxml", 979.0,558.0);
+            prod.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void Factura() {
+        try {
+            // Asegúrate de que cambiarEscena devuelva un objeto del tipo Factura
+            Object obj = cambiarEscena("FacturaFrame.fxml", 979.0, 558.0);
+            if (obj instanceof Factura) {
+                Factura factura = (Factura) obj;
+                factura.setEscenarioPrincipal(this);
+            } else {
+                System.err.println("Error: El objeto devuelto no es una instancia de Factura.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void DetalleFactura() {
+        try {
+            DetalleFacturaController detalleFac = (DetalleFacturaController) cambiarEscena("DetalleFactura.fxml", 979.0,558.0);
+            detalleFac.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
