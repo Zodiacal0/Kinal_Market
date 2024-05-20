@@ -348,34 +348,43 @@ public class FacturaController implements Initializable {
     }
 
     public void eliminar() {
-        if (tipoDeOperaciones == operaciones.AGREGAR) {
-            desactivarControles();
-            limpiarControles();
-            btn_agregarC.setText("Agregar");
-            btn_EliminarC.setText("Eliminar");
-            btn_editarC.setDisable(false);
-            btn_reportesC.setDisable(false);
-            tipoDeOperaciones = operaciones.NULL;
-        } else {
-            if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
-                int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Eliminar Factura", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (respuesta == JOptionPane.YES_OPTION) {
-                    try {
-                        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_eliminarFactura(?)}");
-                        procedimiento.setInt(1, tv_Producto.getSelectionModel().getSelectedItem().getNumeroDeFactura());
-                        procedimiento.execute();
-                        listaFactura.remove(tv_Producto.getSelectionModel().getSelectedIndex());
-                        limpiarControles();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        System.err.println("Error al eliminar la factura: " + e.getMessage());
-                    }
+    if (tipoDeOperaciones == operaciones.AGREGAR) {
+        desactivarControles();
+        limpiarControles();
+        btn_agregarC.setText("Agregar");
+        btn_EliminarC.setText("Eliminar");
+        btn_editarC.setDisable(false);
+        btn_reportesC.setDisable(false);
+        tipoDeOperaciones = operaciones.NULL;
+    } else {
+        if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Eliminar Factura", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                try {
+                    // Eliminar registros asociados en detallefactura
+                    PreparedStatement eliminarDetalleFactura = Conexion.getInstance().getConexion().prepareStatement("DELETE FROM detallefactura WHERE numeroDeFactura = ?");
+                    eliminarDetalleFactura.setInt(1, tv_Producto.getSelectionModel().getSelectedItem().getNumeroDeFactura());
+                    eliminarDetalleFactura.executeUpdate();
+                    
+                    // Eliminar la factura
+                    PreparedStatement eliminarFactura = Conexion.getInstance().getConexion().prepareStatement("DELETE FROM factura WHERE numeroDeFactura = ?");
+                    eliminarFactura.setInt(1, tv_Producto.getSelectionModel().getSelectedItem().getNumeroDeFactura());
+                    eliminarFactura.executeUpdate();
+                    
+                    // Remover la factura de la lista y limpiar controles
+                    listaFactura.remove(tv_Producto.getSelectionModel().getSelectedIndex());
+                    limpiarControles();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.err.println("Error al eliminar la factura: " + e.getMessage());
                 }
-            } else {
-                System.out.println("Debe seleccionar un elemento.");
             }
+        } else {
+            System.out.println("Debe seleccionar un elemento.");
         }
     }
+}
+
 
     // Métodos de activación, desactivación y limpieza de controles
     public void activarControles() {

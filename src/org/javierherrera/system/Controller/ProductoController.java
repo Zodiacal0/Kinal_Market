@@ -353,34 +353,43 @@ public class ProductoController implements Initializable {
     }
 
     public void eliminar() {
-        if (tipoDeOperaciones == operaciones.AGREGAR) {
-            desactivarControles();
-            limpiarControles();
-            btn_agregarC.setText("Agregar");
-            btn_EliminarC.setText("Eliminar");
-            btn_editarC.setDisable(false);
-            btn_reportesC.setDisable(false);
-            tipoDeOperaciones = operaciones.NULL;
-        } else {
-            if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
-                int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Eliminar Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (respuesta == JOptionPane.YES_OPTION) {
-                    try {
-                        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{CALL sp_eliminarProducto(?)}");
-                        procedimiento.setString(1, tv_Producto.getSelectionModel().getSelectedItem().getCodigoProducto());
-                        procedimiento.execute();
-                        listaProducto.remove(tv_Producto.getSelectionModel().getSelectedIndex());
-                        limpiarControles();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        System.err.println("Error al eliminar el producto: " + e.getMessage());
-                    }
+    if (tipoDeOperaciones == operaciones.AGREGAR) {
+        desactivarControles();
+        limpiarControles();
+        btn_agregarC.setText("Agregar");
+        btn_EliminarC.setText("Eliminar");
+        btn_editarC.setDisable(false);
+        btn_reportesC.setDisable(false);
+        tipoDeOperaciones = operaciones.NULL;
+    } else {
+        if (tv_Producto.getSelectionModel().getSelectedItem() != null) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?", "Eliminar Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                try {
+                    // Eliminar registros asociados en detallecompra
+                    PreparedStatement eliminarDetalleCompra = Conexion.getInstance().getConexion().prepareStatement("DELETE FROM detallecompra WHERE codigoProducto = ?");
+                    eliminarDetalleCompra.setString(1, tv_Producto.getSelectionModel().getSelectedItem().getCodigoProducto());
+                    eliminarDetalleCompra.executeUpdate();
+                    
+                    // Eliminar el producto
+                    PreparedStatement eliminarProducto = Conexion.getInstance().getConexion().prepareStatement("DELETE FROM productos WHERE codigoProducto = ?");
+                    eliminarProducto.setString(1, tv_Producto.getSelectionModel().getSelectedItem().getCodigoProducto());
+                    eliminarProducto.executeUpdate();
+                    
+                    // Remover el producto de la lista y limpiar controles
+                    listaProducto.remove(tv_Producto.getSelectionModel().getSelectedIndex());
+                    limpiarControles();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.err.println("Error al eliminar el producto: " + e.getMessage());
                 }
-            } else {
-                System.out.println("Debe seleccionar un elemento.");
             }
+        } else {
+            System.out.println("Debe seleccionar un elemento.");
         }
     }
+}
+
 
     // Métodos de activación, desactivación y limpieza de controles
     public void activarControles() {

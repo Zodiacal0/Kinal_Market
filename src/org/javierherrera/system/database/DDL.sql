@@ -71,8 +71,8 @@ existencia int,
 codigoTipoProducto int,
 codigoProveedor int,
 PRIMARY KEY PK_codigoProducto (codigoProducto),
-FOREIGN KEY (codigoTipoProducto) REFERENCES TipoProducto(codigoTipoProducto),
-FOREIGN KEY (codigoProveedor) REFERENCES Proveedores(codigoProveedor)
+FOREIGN KEY (codigoTipoProducto) REFERENCES TipoProducto(codigoTipoProducto) on delete cascade,
+FOREIGN KEY (codigoProveedor) REFERENCES Proveedores(codigoProveedor)on delete cascade
     
 );
 
@@ -84,8 +84,8 @@ cantidad int,
 codigoProducto varchar(15),
 numeroDocumento int,
 PRIMARY KEY PK_codigoDetalleCompra (codigoDetalleCompra),
-FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto),
-FOREIGN KEY (numeroDocumento) REFERENCES Compras(numeroDocumento)
+FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto)on delete cascade,
+FOREIGN KEY (numeroDocumento) REFERENCES Compras(numeroDocumento)on delete cascade
     
 );
 
@@ -112,8 +112,8 @@ fechaFactura varchar(45),
 codigoCliente int,
 codigoEmpleado int,
 PRIMARY KEY PK_numeroDeFactura (numeroDeFactura),
-FOREIGN KEY (codigoCliente) REFERENCES Cliente(codigoCliente),
-FOREIGN KEY (codigoEmpleado) REFERENCES Empleados(codigoEmpleado)
+FOREIGN KEY (codigoCliente) REFERENCES Cliente(codigoCliente)on delete cascade,
+FOREIGN KEY (codigoEmpleado) REFERENCES Empleados(codigoEmpleado)on delete cascade
 
 );
 
@@ -125,8 +125,8 @@ cantidad int,
 numeroDeFactura int,
 codigoProducto varchar(15),
 PRIMARY KEY PK_codigoDetalleFactura (codigoDetalleFactura),
-FOREIGN KEY (numeroDeFactura) REFERENCES Factura(numeroDeFactura),
-FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto)
+FOREIGN KEY (numeroDeFactura) REFERENCES Factura(numeroDeFactura)on delete cascade,
+FOREIGN KEY (codigoProducto) REFERENCES Productos(codigoProducto)on delete cascade
 
 );
 

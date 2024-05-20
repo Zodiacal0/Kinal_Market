@@ -638,15 +638,6 @@ CALL sp_listarProveedores();
 CALL sp_actualizarProveedor(1, 'Nuevo Nombre', 'Nuevos Apellidos', 'Nueva Dirección', 'Nueva Razón Social', 'Nuevo Contacto Principal', 'www.nuevaweb.com',1234567,'NUEVOCORREGO@GMAIL.COM');
 -- CALL sp_eliminarProveedor(2);
 
-CALL sp_crearTelefonoProveedor(1, "12345678", "87654321", "Sin observaciones", 1);
-CALL sp_listarTelefonosProveedor();
-CALL sp_actualizarTelefonoProveedor(1, "98765432", "87654321", "Nuevas observaciones", 1);
--- CALL sp_eliminarTelefonoProveedor(1);
-
-CALL sp_crearEmailProveedor(1234, "ejemplo@proveedor.com", "Nueva dirección de correo electrónico", 1);
-CALL sp_listarEmailsProveedor();
-CALL sp_actualizarEmailProveedor(1234, "nuevoejemplo@proveedor.com", "Nueva dirección de correo electrónico", 1);
--- CALL sp_eliminarEmailProveedor(1234, 1);
 
 CALL sp_crearProducto('ABC123', 'Producto', 10.99, 99.99, 199.99, 100, 1, 1);
 CALL sp_listarProductos();
