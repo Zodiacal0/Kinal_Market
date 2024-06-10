@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS DB_KinalShop;
 CREATE DATABASE DB_KinalShop;
-use DB_KinalShop;
-
+use DB_KinalShop;ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Aurorita0306@';
+flush privileges;
 set global time_zone = '-6:00';
 
 CREATE TABLE Cliente(

@@ -8,6 +8,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
+import org.javierherrera.system.Reportes.GenerarReportes;
 import org.javierherrera.system.bin.Proveedor;
 import org.javierherrera.system.dao.Conexion;
 import org.javierherrera.system.main.Main;
@@ -35,7 +38,7 @@ public class ProveedorController implements Initializable {
     private Main escenarioPrincipal;
 
     private enum operador {
-        AGREGRAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
+        AGREGRAR, ELIMINAR, EDITAR, ACTUALIZAR, NULL, NINGUNO
     }
     private operador tipoDeOperador = operador.NINGUNO;
     @FXML
@@ -305,6 +308,10 @@ public class ProveedorController implements Initializable {
 
     public void reportes() {
         switch (tipoDeOperador) {
+            case NULL:
+                imprimirReporte();
+                System.out.println("Wbos");
+                break;
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
@@ -312,9 +319,16 @@ public class ProveedorController implements Initializable {
                 btn_reportesC.setText("Reportes");
                 btn_agregarC.setDisable(false);
                 btn_EliminarC.setDisable(false);
-                tipoDeOperador = operador.NINGUNO;
-
+                tipoDeOperador = operador.NULL;
+                cargarDatos();
+                break;
         }
+    }
+
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoProveedor", null);
+        GenerarReportes.mostrarReportes("reportProveedores.jasper", "Reporte de Proveedores", parametros);
     }
 
     public void actualizar() {

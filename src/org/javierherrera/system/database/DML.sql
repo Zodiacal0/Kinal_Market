@@ -1,4 +1,4 @@
-use DB_KinalShop;
+use DB_KinalShop	;
 
 DELIMITER $$
 CREATE PROCEDURE sp_crearCliente(in codigoCliente int, in nitCliente varchar(10), in nombreCliente varchar(50), in apellidoCliente varchar (50), in direccionCliente varchar(150), in telefonoCliente varchar(45), in correoCliente varchar(45))
@@ -606,11 +606,12 @@ END $$
 
 DELIMITER ;
 
-
-CALL sp_crearCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','javierherrera5513@gmail.com');
+CALL sp_crearCliente(1,'123456-8','prueba','pruab1','5ta Calle Z.2 Mixco','+502 12345678','pruabcorreo@gmail.com');
+CALL sp_crearCliente(2,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','javierherrera5513@gmail.com');
+CALL sp_crearCliente(3,'123545-3','Ludwin','Xocoy','Barrio Chino','+502 12653498','ludwinxocoy6@gmail.com');
+CALL sp_crearCliente(4,'652375-8','Luis','Flores','Direccion ejemp1','+502 12345678','luispedro@gmail.com');
 CALL sp_listarCliente();
-CALL sp_actualizarCliente(1,'888029-8','Javier','Herrera','5ta Calle Z.2 Mixco','+502 55885335','jherrera-2020459@kinal.edu.gt');
--- CALL sp_eliminarCliente(1);
+
 
 CALL sp_crearTipoProducto(1,"Proteínas");
 CALL sp_crearTipoProducto(2,"aaaaa");

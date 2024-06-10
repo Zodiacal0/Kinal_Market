@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
+import org.javierherrera.system.Reportes.GenerarReportes;
 import org.javierherrera.system.bin.Producto;
 import org.javierherrera.system.bin.Proveedor;
 import org.javierherrera.system.bin.TipoDeProducto;
@@ -425,8 +428,28 @@ public class ProductoController implements Initializable {
         cmb_codigoProveedor.getSelectionModel().clearSelection();
     }
     
-    public void reportes(){
-    
+    public void reportes() {
+        switch (tipoDeOperaciones) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btn_editarC.setText("Editar");
+                btn_reportesC.setText("Reportes");
+                btn_agregarC.setDisable(false);
+                btn_EliminarC.setDisable(false);
+                tipoDeOperaciones = ProductoController.operaciones.NULL;
+                cargarDatos();
+                break;
+        }
+    }
+
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoProducto", null);
+        GenerarReportes.mostrarReportes("reportProductos.jasper", "Reporte de Productos", parametros);
     }
 
     @FXML

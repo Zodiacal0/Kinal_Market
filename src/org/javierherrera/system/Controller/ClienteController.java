@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
+import org.javierherrera.system.Reportes.GenerarReportes;
 import org.javierherrera.system.bin.Cliente;
 import org.javierherrera.system.dao.Conexion;
 import org.javierherrera.system.main.Main;
@@ -212,6 +215,9 @@ public class ClienteController implements Initializable {
 
     public void reportes() {
         switch (tipoDeOperaciones) {
+            case NULL:
+                imprimirReporte();
+                break;
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
@@ -220,9 +226,17 @@ public class ClienteController implements Initializable {
                 btn_agregarC.setDisable(false);
                 btn_EliminarC.setDisable(false);
                 tipoDeOperaciones = operaciones.NULL;
+                cargarDatos();
+                break;
         }
     }
 
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoCliente", null);
+        GenerarReportes.mostrarReportes("reportClientes.jasper", "Reporte de Clientes", parametros);
+    }
+    
     public void actualizar() throws Exception {
         Cliente reg = new Cliente();
         reg.setCodigoCliente(Integer.parseInt(txt_idC.getText()));
