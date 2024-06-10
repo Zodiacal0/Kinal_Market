@@ -38,7 +38,7 @@ public class ProveedorController implements Initializable {
     private Main escenarioPrincipal;
 
     private enum operador {
-        AGREGRAR, ELIMINAR, EDITAR, ACTUALIZAR, NULL, NINGUNO
+        AGREGRAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operador tipoDeOperador = operador.NINGUNO;
     @FXML
@@ -308,23 +308,21 @@ public class ProveedorController implements Initializable {
 
     public void reportes() {
         switch (tipoDeOperador) {
-            case NULL:
+            case NINGUNO:
                 imprimirReporte();
-                System.out.println("Wbos");
-                break;
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
+                imprimirReporte();
                 btn_editarC.setText("Editar");
                 btn_reportesC.setText("Reportes");
                 btn_agregarC.setDisable(false);
                 btn_EliminarC.setDisable(false);
-                tipoDeOperador = operador.NULL;
-                cargarDatos();
-                break;
+                tipoDeOperador = operador.NINGUNO;
+
         }
     }
-
+    
     public void imprimirReporte(){
         Map parametros = new HashMap();
         parametros.put("codigoProveedor", null);
