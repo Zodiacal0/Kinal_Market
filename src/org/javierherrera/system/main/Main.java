@@ -121,7 +121,7 @@ public class Main extends Application {
     }
     public void Proveedor() {
         try {
-            ProveedorController prov = (ProveedorController) cambiarEscena("ProveedorFrame.fxml", 878.0,473.0);
+            ProveedorController prov = (ProveedorController) cambiarEscena("ProveedorFrame.fxml", 1070.0,590.0);
             prov.setEscenarioPrincipal(this);
         } catch (Exception e) {
             e.printStackTrace();

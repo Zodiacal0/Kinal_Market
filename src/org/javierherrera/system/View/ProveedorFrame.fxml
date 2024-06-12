@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="1064.0" stylesheets="@../resource/ClienteFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.ProveedorController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="1064.0" stylesheets="@../resource/ClienteFrameCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javierherrera.system.Controller.ProveedorController">
    <children>
-      <ImageView fitHeight="473.0" fitWidth="880.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="604.0" fitWidth="1070.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Proveedores.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tv_Cliente" layoutX="16.0" layoutY="95.0" onMouseClicked="#seleccionar" prefHeight="114.0" prefWidth="1042.0">
+      <TableView fx:id="tv_Cliente" layoutX="14.0" layoutY="116.0" onMouseClicked="#seleccionar" prefHeight="114.0" prefWidth="1042.0">
         <columns>
           <TableColumn fx:id="col_codigoProveedor" prefWidth="103.0" text="codigoProveedor" />
           <TableColumn fx:id="col_nitProveedor" prefWidth="82.0" text="NITProveedor" />
@@ -94,7 +94,7 @@
             <TextField fx:id="txt_paginaW" prefHeight="25.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="btn_Volver" layoutX="728.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="83.0" text="Volver" />
+      <Button fx:id="btn_Volver" layoutX="924.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="45.0" prefWidth="83.0" text="Volver" />
       <Label layoutX="507.0" layoutY="333.0" text="telefonoProveedor" />
       <TextField fx:id="txt_telefonoProveedor" layoutX="613.0" layoutY="328.0" prefHeight="25.0" prefWidth="97.0" />
       <Label layoutX="507.0" layoutY="363.0" text="emailProveedor" />

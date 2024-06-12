@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
+import org.javierherrera.system.Reportes.GenerarReportes;
 import org.javierherrera.system.bin.Cliente;
 import org.javierherrera.system.bin.Empleado;
 import org.javierherrera.system.bin.Factura;
@@ -414,9 +417,36 @@ public class FacturaController implements Initializable {
         cmb_codigoEmpleado.getSelectionModel().clearSelection();
     }
 
-    public void reportes(){
-        // Implementar la lógica de generación de reportes
+    public void reportes() {
+        switch (tipoDeOperaciones) {
+            case NULL:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btn_editarC.setText("Editar");
+                btn_reportesC.setText("Reportes");
+                btn_agregarC.setDisable(false);
+                btn_EliminarC.setDisable(false);
+                tipoDeOperaciones = operaciones.NULL;
+                cargarDatos();
+                break;
+        }
     }
+
+    public void imprimirReporte() {
+    Factura facturaSeleccionada = (Factura) tv_Producto.getSelectionModel().getSelectedItem();
+    if (facturaSeleccionada != null) {
+        int facturaID = facturaSeleccionada.getNumeroDeFactura();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("facturaID", facturaID);
+        GenerarReportes.mostrarReportes("reportFactura.jasper", "Reporte de Factura", parametros);
+    } else {
+        System.out.println("No se ha seleccionado ninguna factura.");
+    }
+}
+
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
